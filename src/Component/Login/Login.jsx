@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../../Context/AuthContext';
 
 const Login = () => {
 
+const { loginUser } = use(AuthContext);
+
+
+
+
 const handleLogin = e => {
     e.preventDefault();
+    const email =e.target.email.value;
+    const password =e.target.password.value;
+    console.log(email,password);
+    
+
+    // login user
+    loginUser(email,password)
+    .then(result => {
+      console.log(result);
+    })
+    .catch (error => {
+      console.log(error);
+    })
 }
+
 
 
     return (
@@ -15,9 +35,9 @@ const handleLogin = e => {
             <h1 className="text-3xl font-bold">Login now!</h1>
               <form onSubmit={handleLogin} className="fieldset">
                 <label className="label">Email</label>
-                <input type="email" className="input" placeholder="Email" />
+                <input type="email" name='email' className="input" placeholder="Email" />
                 <label className="label">Password</label>
-                <input type="password" className="input" placeholder="Password" />
+                <input type="password" name='password' className="input" placeholder="Password" />
                 <div><a className="link link-hover">Forgot password?</a></div>
                 <button className="btn btn-neutral mt-4">Login</button>
               </form>
